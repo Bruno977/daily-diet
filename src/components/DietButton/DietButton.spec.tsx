@@ -5,7 +5,7 @@ jest.mock("phosphor-react-native", () => ({
   ArrowUpRight: () => <></>,
 }));
 describe("<DietButton/>", () => {
-  it("Should render Diet Percentage", async () => {
+  it("Should render correctly", async () => {
     const { getByText } = render(<DietButton variant="primary" />);
     await waitFor(() => {
       expect(getByText("das refeições dentro da dieta")).toBeTruthy();
