@@ -5,5 +5,9 @@
   ],
   "setupFilesAfterEnv": [
     "@testing-library/react-native/extend-expect"
-  ]
+  ],
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest",
+    "^.+\\.svg$": "jest-transformer-svg"
+  }
 }
