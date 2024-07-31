@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Routes } from "./src/routes";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/config/theme";
 
 export default function App() {

@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-components';
+import { DefaultTheme } from 'styled-components/native';
 export const theme: DefaultTheme = {
   COLORS: {
     RED_DARK: "#BF3B44",
@@ -25,7 +25,7 @@ export const theme: DefaultTheme = {
     
   },
   LINE_HEIGHT: {
-    DEFAULT: "130%"
+    DEFAULT: 1.3
   },
   FONT_SIZE:{
     XS: 12,

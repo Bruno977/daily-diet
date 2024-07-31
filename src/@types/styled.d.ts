@@ -28,7 +28,7 @@ declare module 'styled-components/native' {
       
     },
     LINE_HEIGHT: {
-      DEFAULT: string
+      DEFAULT: number
     },
     FONT_SIZE:{
       XS: number,
