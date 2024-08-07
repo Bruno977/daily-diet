@@ -1,6 +1,11 @@
 import * as S from "./styles";
+import { MealItem } from "./types";
 
-export function MealListItem({ data }: any) {
+type MealListItemProps = {
+  data: MealItem;
+};
+
+export function MealListItem({ data }: MealListItemProps) {
   return (
     <S.Container>
       <S.Hour>{data.hour}</S.Hour>
