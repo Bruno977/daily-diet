@@ -8,6 +8,7 @@ import { MealListItem } from "../../components/MealList/MealListItem";
 import { MealItem } from "../../components/MealList/types";
 import { MealListTitle } from "../../components/MealList/MealListTitle";
 import { MealListEmpty } from "../../components/MealList/MealListEmpty";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type DataProps = {
   title: string;
@@ -42,29 +43,35 @@ const DATA: DataProps[] = [
 ];
 
 export function Home() {
+  const insets = useSafeAreaInsets();
   return (
     <>
-      <S.Container>
-        <SectionList
-          sections={DATA}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <MealListItem data={item} />}
-          renderSectionHeader={({ section: { title } }) => (
-            <MealListTitle title={title} />
-          )}
-          contentContainerStyle={[{ paddingBottom: 100, flexGrow: 1 }]}
-          showsVerticalScrollIndicator={false}
-          ListHeaderComponent={
-            <>
-              <Header />
-              <DietButton />
-              <S.MealTitle>Refeições</S.MealTitle>
-              <Button title="Nova Refeição" icon={<Plus />} />
-            </>
-          }
-          ListEmptyComponent={<MealListEmpty />}
-        />
-      </S.Container>
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <MealListItem data={item} />}
+        renderSectionHeader={({ section: { title } }) => (
+          <MealListTitle title={title} />
+        )}
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingTop: insets.top + 24,
+          paddingBottom: insets.bottom + 120,
+          paddingLeft: insets.left + 24,
+          paddingRight: insets.right + 24,
+        }}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={
+          <>
+            <Header />
+            <DietButton />
+            <S.MealTitle>Refeições</S.MealTitle>
+            <Button title="Nova Refeição" icon={<Plus />} />
+          </>
+        }
+        ListEmptyComponent={<MealListEmpty />}
+      />
+
       <S.GradientOverlay
         colors={["rgba(250, 250, 250, 0)", "rgba(250, 250, 250, 1)"]}
       />
