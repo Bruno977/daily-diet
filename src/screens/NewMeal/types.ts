@@ -1,0 +1,1 @@
+export type ButtonMealStatusProps = "inDiet" | "outDiet";

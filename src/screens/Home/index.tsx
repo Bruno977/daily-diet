@@ -49,6 +49,9 @@ export function Home() {
   function handlePressNewMeal() {
     navigate("MealStatistics");
   }
+  function handleCreateMeal() {
+    navigate("NewMeal");
+  }
   return (
     <>
       <SectionList
@@ -71,7 +74,11 @@ export function Home() {
             <Header />
             <DietButton onPress={handlePressNewMeal} />
             <S.MealTitle>Refeições</S.MealTitle>
-            <Button title="Nova Refeição" icon={<Plus />} />
+            <Button
+              title="Nova Refeição"
+              icon={<Plus />}
+              onPress={handleCreateMeal}
+            />
           </>
         }
         ListEmptyComponent={<MealListEmpty />}
