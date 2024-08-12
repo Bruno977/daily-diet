@@ -9,6 +9,7 @@ import { MealItem } from "../../components/MealList/types";
 import { MealListTitle } from "../../components/MealList/MealListTitle";
 import { MealListEmpty } from "../../components/MealList/MealListEmpty";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 
 type DataProps = {
   title: string;
@@ -44,6 +45,10 @@ const DATA: DataProps[] = [
 
 export function Home() {
   const insets = useSafeAreaInsets();
+  const { navigate } = useNavigation();
+  function handlePressNewMeal() {
+    navigate("MealStatistics");
+  }
   return (
     <>
       <SectionList
@@ -64,7 +69,7 @@ export function Home() {
         ListHeaderComponent={
           <>
             <Header />
-            <DietButton />
+            <DietButton onPress={handlePressNewMeal} />
             <S.MealTitle>Refeições</S.MealTitle>
             <Button title="Nova Refeição" icon={<Plus />} />
           </>

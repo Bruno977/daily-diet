@@ -2,15 +2,16 @@ import { HeaderCardTitle } from "../HeaderCardTitle";
 import { ArrowUpRight } from "phosphor-react-native";
 import * as S from "./styles";
 import { useTheme } from "styled-components/native";
+import { PressableProps } from "react-native";
 
-export interface DietButtonProps {
+export type DietButtonProps = PressableProps & {
   variant?: "primary" | "secondary";
-}
+};
 
-export function DietButton({ variant = "primary" }: DietButtonProps) {
+export function DietButton({ variant = "primary", ...rest }: DietButtonProps) {
   const theme = useTheme();
   return (
-    <S.Button variant={variant}>
+    <S.Button variant={variant} {...rest}>
       <S.Icon>
         <ArrowUpRight
           size={24}
