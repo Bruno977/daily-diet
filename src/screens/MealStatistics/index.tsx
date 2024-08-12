@@ -1,9 +1,9 @@
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { HeaderAction } from "../HeaderAction";
-import { HeaderCardTitle } from "../HeaderCardTitle";
+import { HeaderAction } from "../../components/HeaderAction";
+import { HeaderCardTitle } from "../../components/HeaderCardTitle";
 import * as S from "./styles";
 import { useTheme } from "styled-components/native";
-import { CardStatistics } from "../CardStatistics";
+import { CardStatistics } from "../../components/CardStatistics";
 
 export function MealStatistics() {
   const insets = useSafeAreaInsets();
