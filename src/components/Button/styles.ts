@@ -28,6 +28,7 @@ export const Button = styled(TouchableOpacity)<ButtonProps>`
   max-height: 50px;
   align-items: center;
   justify-content: center;
+  padding: 0px 24px;
 
   ${props => props.hasIcon && css`
     flex-direction: row;
