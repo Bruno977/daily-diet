@@ -7,14 +7,20 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View } from "react-native";
 import { useState } from "react";
 import { ButtonMealStatusProps } from "./types";
+import { useNavigation } from "@react-navigation/native";
 
 export function NewMeal() {
   const insets = useSafeAreaInsets();
+  const { navigate } = useNavigation();
   const [buttonStatus, setButtonStatus] =
     useState<ButtonMealStatusProps>("inDiet");
 
   function handlePressButtonMealStatus(status: ButtonMealStatusProps) {
     setButtonStatus(status);
+  }
+
+  function handleCreateMeal() {
+    navigate("RegisteredMeal", { mealStatus: buttonStatus });
   }
   return (
     <>
@@ -52,7 +58,7 @@ export function NewMeal() {
             </S.GridRow>
           </View>
         </S.GridContainer>
-        <Button title="Cadastrar Refeição" />
+        <Button title="Cadastrar Refeição" onPress={handleCreateMeal} />
       </S.Container>
     </>
   );
