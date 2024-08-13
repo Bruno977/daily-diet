@@ -1,16 +1,14 @@
-import { HeaderAction } from "../../components/HeaderAction";
 import { Input } from "../../components/Input";
 import * as S from "./styles";
 import { ButtonMealStatus } from "../../components/ButtonMealStatus";
 import { Button } from "../../components/Button";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View } from "react-native";
 import { useState } from "react";
 import { ButtonMealStatusProps } from "./types";
 import { useNavigation } from "@react-navigation/native";
+import { HeaderPage } from "../../components/HeaderPage";
 
 export function NewMeal() {
-  const insets = useSafeAreaInsets();
   const { navigate } = useNavigation();
   const [buttonStatus, setButtonStatus] =
     useState<ButtonMealStatusProps>("inDiet");
@@ -24,14 +22,7 @@ export function NewMeal() {
   }
   return (
     <>
-      <S.ContainerHeader
-        style={{
-          paddingLeft: insets.left + 24,
-          paddingRight: insets.right + 24,
-        }}
-      >
-        <HeaderAction title="Nova Refeição" />
-      </S.ContainerHeader>
+      <HeaderPage />
       <S.Container>
         <S.GridContainer>
           <Input label="Nome" />
