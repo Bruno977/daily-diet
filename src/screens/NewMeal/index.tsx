@@ -29,7 +29,7 @@ export function NewMeal() {
       <S.Container>
         <S.GridContainer>
           <Input label="Nome" />
-          <Input label="Descrição" />
+          <Input label="Descrição" isTextArea />
           <S.GridRow>
             <Input label="Data" fullWidth />
             <Input label="Hora" fullWidth />

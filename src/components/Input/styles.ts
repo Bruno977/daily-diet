@@ -1,4 +1,8 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
+
+type TextInputProps = {
+  isTextArea: boolean;
+}
 
 export const Container = styled.View`
   gap: 4px;
@@ -12,8 +16,10 @@ export const Label = styled.Text`
   flex-shrink: 0;
 `
 
-export const Input = styled.TextInput`
-  height: 48px;
+export const Input = styled.TextInput<TextInputProps>`
+  ${props => !props.isTextArea && css`
+    height: 48px;
+  `}
   border: 1px solid ${props => props.theme.COLORS.GRAY_5};
   border-radius: 6px;
   padding: 14px;
