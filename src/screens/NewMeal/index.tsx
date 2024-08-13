@@ -22,7 +22,7 @@ export function NewMeal() {
   }
   return (
     <>
-      <HeaderPage />
+      <HeaderPage title="Nova Refeição" />
       <S.Container>
         <S.GridContainer>
           <Input label="Nome" />
