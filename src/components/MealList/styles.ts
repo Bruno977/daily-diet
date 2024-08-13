@@ -4,7 +4,7 @@ type StatusProps = {
   isFreeMeal: boolean
 }
 
-export const Container = styled.View`
+export const Container = styled.Pressable`
   border: 1px solid ${props => props.theme.COLORS.GRAY_5};
   border-radius: 6px;
   height: 49px;
