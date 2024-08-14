@@ -7,11 +7,23 @@ import { Tag } from "../../components/Tag";
 import { Button } from "../../components/Button";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PencilSimpleLine, Trash } from "phosphor-react-native";
+import { Modal } from "../../components/Modal";
+import { useState } from "react";
 export function MealDetails() {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
+  const [modalDeleteIsVisible, setModalDeleteIsVisible] = useState(false);
+
+  function handleDeleteMeal() {
+    console.log("Delete Meal");
+  }
   return (
     <>
+      <Modal
+        visible={modalDeleteIsVisible}
+        onConfirm={handleDeleteMeal}
+        onClose={() => setModalDeleteIsVisible(!modalDeleteIsVisible)}
+      />
       <HeaderPage title="Refeição" color={theme.COLORS.GREEN_LIGHT} />
       <Container style={{ gap: 15 }}>
         <View style={{ gap: 8 }}>
@@ -35,7 +47,12 @@ export function MealDetails() {
         }}
       >
         <Button title="Editar Refeição" icon={<PencilSimpleLine />} />
-        <Button title="Excluir Refeição" variant="outline" icon={<Trash />} />
+        <Button
+          title="Excluir Refeição"
+          variant="outline"
+          icon={<Trash />}
+          onPress={() => setModalDeleteIsVisible(!modalDeleteIsVisible)}
+        />
       </View>
     </>
   );
