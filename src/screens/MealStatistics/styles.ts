@@ -2,6 +2,7 @@ import styled from "styled-components/native";
 
 export const HeaderContainer = styled.View`
   background-color: ${props => props.theme.COLORS.GREEN_LIGHT};
+  padding-bottom: 20px;
 `
 export const HeaderHeaderCardTitleContainer = styled.View`
   padding-top: 10px;

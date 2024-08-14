@@ -4,6 +4,7 @@ import { HeaderCardTitle } from "../../components/HeaderCardTitle";
 import * as S from "./styles";
 import { useTheme } from "styled-components/native";
 import { CardStatistics } from "../../components/CardStatistics";
+import { Container } from "../NewMeal/styles";
 
 export function MealStatistics() {
   const insets = useSafeAreaInsets();
@@ -25,7 +26,7 @@ export function MealStatistics() {
           />
         </S.HeaderHeaderCardTitleContainer>
       </S.HeaderContainer>
-      <S.Container
+      <Container
         style={{
           paddingLeft: insets.left + 24,
           paddingRight: insets.right + 24,
@@ -51,7 +52,7 @@ export function MealStatistics() {
             />
           </S.GridCardsRow>
         </S.GridCardsContainer>
-      </S.Container>
+      </Container>
     </>
   );
 }

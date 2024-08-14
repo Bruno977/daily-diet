@@ -7,6 +7,10 @@ export const Container = styled.View`
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
   margin-top: -20px;
+  shadow-color: #000;  
+  shadow-offset: 0px 0px;  
+  shadow-opacity: 0.05; 
+  shadow-radius: 30px; 
 `
 export const GridContainer = styled.View`
   gap: 24px;
