@@ -13,4 +13,5 @@ export const GradientOverlay = styled(LinearGradient)`
   left: 0;
   right: 0;
   height: 160px;
+  pointer-events: none;
   `
