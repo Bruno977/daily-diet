@@ -3,4 +3,5 @@ export type RootStackParamList = {
   MealStatistics: undefined;
   NewMeal: undefined;
   RegisteredMeal: { mealStatus: string };
+  MealDetails: { mealId: string };
 };

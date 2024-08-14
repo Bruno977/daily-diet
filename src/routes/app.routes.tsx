@@ -5,6 +5,7 @@ import { Home } from "../screens/Home";
 import { MealStatistics } from "../screens/MealStatistics";
 import { NewMeal } from "../screens/NewMeal";
 import { RegisteredMeal } from "../screens/RegisteredMeal";
+import { MealDetails } from "../screens/MealDetails";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -18,6 +19,7 @@ export function AppRoutes() {
       <Stack.Screen name="MealStatistics" component={MealStatistics} />
       <Stack.Screen name="NewMeal" component={NewMeal} />
       <Stack.Screen name="RegisteredMeal" component={RegisteredMeal} />
+      <Stack.Screen name="MealDetails" component={MealDetails} />
     </Stack.Navigator>
   );
 }
