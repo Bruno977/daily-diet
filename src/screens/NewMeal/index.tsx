@@ -121,13 +121,6 @@ export function NewMeal() {
     }
   }
 
-  async function clear() {
-    await AsyncStorage.clear();
-  }
-  useEffect(() => {
-    clear();
-  }, []);
-
   return (
     <>
       <DatePicker
