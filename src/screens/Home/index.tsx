@@ -5,46 +5,17 @@ import { Header } from "../../components/Header";
 import * as S from "./styles";
 import { SectionList } from "react-native";
 import { MealListItem } from "../../components/MealList/MealListItem";
-import { MealItem } from "../../components/MealList/types";
 import { MealListTitle } from "../../components/MealList/MealListTitle";
 import { MealListEmpty } from "../../components/MealList/MealListEmpty";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
-
-type DataProps = {
-  title: string;
-  data: MealItem[];
-};
-
-const DATA: DataProps[] = [
-  {
-    title: "12.08.22",
-    data: [
-      { id: "1", hour: "20:00", title: "X-Tudo", isFreeMeal: true },
-      { id: "2", hour: "20:00", title: "X-Tudo", isFreeMeal: false },
-      { id: "3", hour: "20:00", title: "X-Tudo", isFreeMeal: true },
-    ],
-  },
-  {
-    title: "13.08.22",
-    data: [
-      { id: "4", hour: "20:00", title: "X-Tudo", isFreeMeal: true },
-      { id: "5", hour: "20:00", title: "X-Tudo", isFreeMeal: false },
-      { id: "6", hour: "20:00", title: "X-Tudo", isFreeMeal: true },
-    ],
-  },
-  {
-    title: "14.08.22",
-    data: [
-      { id: "7", hour: "20:00", title: "X-Tudo", isFreeMeal: true },
-      { id: "8", hour: "20:00", title: "X-Tudo", isFreeMeal: false },
-      { id: "9", hour: "20:00", title: "X-Tudo", isFreeMeal: true },
-    ],
-  },
-];
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useCallback, useState } from "react";
+import { DATA_MEAL_STORAGE_KEY, getStorage } from "../../utils/asyncStorage";
+import { DataStorageProps } from "../../@types/storage";
 
 export function Home() {
   const insets = useSafeAreaInsets();
+  const [mealList, setMealList] = useState<DataStorageProps[] | []>([]);
   const { navigate } = useNavigation();
   function handlePressNewMeal() {
     navigate("MealStatistics");
@@ -52,10 +23,27 @@ export function Home() {
   function handleCreateMeal() {
     navigate("NewMeal");
   }
+
+  async function getMealStorage() {
+    try {
+      const response = (await getStorage(
+        DATA_MEAL_STORAGE_KEY
+      )) as DataStorageProps[];
+      setMealList(response);
+    } catch (error) {
+      console.error("Error get meal", error);
+    }
+  }
+  useFocusEffect(
+    useCallback(() => {
+      getMealStorage();
+    }, [])
+  );
+
   return (
     <>
       <SectionList
-        sections={DATA}
+        sections={mealList}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <MealListItem data={item} />}
         renderSectionHeader={({ section: { title } }) => (

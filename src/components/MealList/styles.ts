@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
 type StatusProps = {
-  isFreeMeal: boolean
+  inDiet: boolean
 }
 
 export const Container = styled.Pressable`
@@ -33,7 +33,7 @@ export const Status = styled.View<StatusProps>`
   width: 14px;
   height: 14px;
   border-radius: 7px;
-  background-color: ${props => props.isFreeMeal? props.theme.COLORS.RED_MID : props.theme.COLORS.GREEN_MID};
+  background-color: ${props => props.inDiet? props.theme.COLORS.RED_MID : props.theme.COLORS.GREEN_MID};
   margin-left: auto;
 `
 export const TitleHeader = styled.Text`
