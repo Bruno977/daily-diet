@@ -20,9 +20,8 @@ import {
   DATA_MEAL_STORAGE_KEY,
   getStorage,
 } from "../../utils/asyncStorage";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { isSameDay } from "date-fns";
-import { dataStorageProps } from "../../@types/storage";
+import { DataStorageProps } from "../../@types/storage";
 
 export function NewMeal() {
   const { navigate } = useNavigation();
@@ -67,7 +66,7 @@ export function NewMeal() {
   async function formatBodyStorage() {
     const response = (await getStorage(
       DATA_MEAL_STORAGE_KEY
-    )) as dataStorageProps[];
+    )) as DataStorageProps[];
 
     const newMeal = {
       id: uuid.v4() as string,
