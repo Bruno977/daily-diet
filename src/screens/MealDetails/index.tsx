@@ -10,20 +10,27 @@ import { PencilSimpleLine, Trash } from "phosphor-react-native";
 import { Modal } from "../../components/Modal";
 import { useEffect, useMemo, useState } from "react";
 import { MealDetailsProps, MealProps } from "./types";
-import { getMealStorage } from "../../utils/asyncStorage";
+import { getMealStorage, removeMealStorage } from "../../utils/asyncStorage";
 import { DataStorageItemProps } from "../../@types/storage";
 import { format } from "date-fns";
+import { useNavigation } from "@react-navigation/native";
 
 export function MealDetails({ route }: MealDetailsProps) {
   const { mealId } = route.params;
+  const { navigate } = useNavigation();
   const [meal, setMeal] = useState<DataStorageItemProps | null>(null);
 
   const insets = useSafeAreaInsets();
   const theme = useTheme();
   const [modalDeleteIsVisible, setModalDeleteIsVisible] = useState(false);
 
-  function handleDeleteMeal() {
-    console.log("Delete Meal");
+  async function handleDeleteMeal() {
+    try {
+      await removeMealStorage(mealId);
+      navigate("Home");
+    } catch (error) {
+      console.error("Error delete meal", error);
+    }
   }
 
   const headerColor = useMemo(() => {

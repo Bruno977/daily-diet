@@ -33,4 +33,23 @@ async function getMealStorage(id: string) {
 
   return null;
 }
-export { createStorage, getStorage, getMealStorage };
+
+async function removeMealStorage(id: string) {
+  const response: DataStorageProps[] = await getStorage(DATA_MEAL_STORAGE_KEY);
+
+  if (!response || response.length === 0) {
+    return null;
+  }
+
+  const newData = response.map((dataItem) => {
+    return {
+      ...dataItem,
+      data: dataItem.data.filter((item) => item.id !== id),
+    };
+  });
+
+  const filteredData = newData.filter((dataItem) => dataItem.data.length > 0);
+
+  await createStorage(DATA_MEAL_STORAGE_KEY, JSON.stringify(filteredData));
+}
+export { createStorage, getStorage, getMealStorage, removeMealStorage };
