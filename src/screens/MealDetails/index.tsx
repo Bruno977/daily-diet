@@ -79,7 +79,11 @@ export function MealDetails({ route }: MealDetailsProps) {
           gap: 8,
         }}
       >
-        <Button title="Editar Refeição" icon={<PencilSimpleLine />} />
+        <Button
+          title="Editar Refeição"
+          icon={<PencilSimpleLine />}
+          onPress={() => navigate("NewMeal", { mealId: mealId })}
+        />
         <Button
           title="Excluir Refeição"
           variant="outline"

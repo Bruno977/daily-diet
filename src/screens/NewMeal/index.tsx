@@ -4,7 +4,7 @@ import { ButtonMealStatus } from "../../components/ButtonMealStatus";
 import { Button } from "../../components/Button";
 import { View } from "react-native";
 import { useEffect, useState } from "react";
-import { ButtonMealStatusProps, formDataProps } from "./types";
+import { ButtonMealStatusProps, formDataProps, NewMealProps } from "./types";
 import { useNavigation } from "@react-navigation/native";
 import { HeaderPage } from "../../components/HeaderPage";
 import { DatePicker } from "../../components/DatePicker";
@@ -18,12 +18,15 @@ import { formatDate, formatTime } from "../../utils/formatDate";
 import {
   createStorage,
   DATA_MEAL_STORAGE_KEY,
+  getMealStorage,
   getStorage,
+  updateMealStorage,
 } from "../../utils/asyncStorage";
 import { isSameDay } from "date-fns";
 import { DataStorageProps } from "../../@types/storage";
 
-export function NewMeal() {
+export function NewMeal({ route }: NewMealProps) {
+  const routeParams = route?.params;
   const { navigate } = useNavigation();
   const startDate = new Date();
 
@@ -119,6 +122,45 @@ export function NewMeal() {
       console.error("Error saving meal:", err.message);
     }
   }
+  async function handleUpdateMeal() {
+    try {
+      await updateMealStorage({
+        id: routeParams?.mealId as string,
+        hour: String(formData.date),
+        title: formData.title,
+        inDiet: buttonStatus === "inDiet",
+        description: formData.description,
+      });
+      navigate("Home");
+    } catch (error) {
+      console.error("Error updating meal:", error);
+    }
+  }
+
+  async function getMeal() {
+    if (!routeParams?.mealId) {
+      return;
+    }
+    try {
+      const response = await getMealStorage(routeParams.mealId);
+      if (!response) {
+        return;
+      }
+      setFormData({
+        title: response.title,
+        description: response.description,
+        date: new Date(response.hour),
+      });
+      setButtonStatus(response.inDiet ? "inDiet" : "outDiet");
+      setDate(new Date(response.hour));
+    } catch (error) {
+      console.error("Error getting meal:", error);
+    }
+  }
+
+  useEffect(() => {
+    getMeal();
+  }, [routeParams]);
 
   return (
     <>
@@ -128,7 +170,9 @@ export function NewMeal() {
         date={date}
         onChange={handleChangeDate}
       />
-      <HeaderPage title="Nova Refeição" />
+      <HeaderPage
+        title={routeParams?.mealId ? "Editar refeição" : "Nova Refeição"}
+      />
       <S.Container>
         <S.GridContainer>
           <Input
@@ -139,6 +183,7 @@ export function NewMeal() {
           <Input
             label="Descrição"
             isTextArea
+            value={formData.description}
             onChangeText={(value) =>
               setFormData({ ...formData, description: value })
             }
@@ -173,7 +218,11 @@ export function NewMeal() {
             </S.GridRow>
           </View>
         </S.GridContainer>
-        <Button title="Cadastrar Refeição" onPress={handleSaveMeal} />
+        {routeParams?.mealId ? (
+          <Button title="Salvar alterações" onPress={handleUpdateMeal} />
+        ) : (
+          <Button title="Cadastrar Refeição" onPress={handleSaveMeal} />
+        )}
       </S.Container>
     </>
   );
