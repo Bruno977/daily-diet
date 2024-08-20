@@ -20,12 +20,6 @@ export function Home() {
   const [mealList, setMealList] = useState<DataStorageProps[] | []>([]);
   const [percentage, setPercentage] = useState(0);
   const { navigate } = useNavigation();
-  function handlePressNewMeal() {
-    navigate("MealStatistics");
-  }
-  function handleCreateMeal() {
-    navigate("NewMeal");
-  }
 
   async function getMealStorage() {
     try {
@@ -65,12 +59,15 @@ export function Home() {
         ListHeaderComponent={
           <>
             <Header />
-            <DietButton onPress={handlePressNewMeal} percentage={percentage} />
+            <DietButton
+              onPress={() => navigate("MealStatistics")}
+              percentage={percentage}
+            />
             <S.MealTitle>Refeições</S.MealTitle>
             <Button
               title="Nova Refeição"
               icon={<Plus />}
-              onPress={handleCreateMeal}
+              onPress={() => navigate("NewMeal")}
             />
           </>
         }
