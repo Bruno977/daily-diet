@@ -16,6 +16,7 @@ import uuid from "react-native-uuid";
 
 import { formatDate, formatTime } from "../../utils/formatDate";
 import {
+  createNewMealStorage,
   createStorage,
   DATA_MEAL_STORAGE_KEY,
   getMealStorage,
@@ -24,6 +25,7 @@ import {
 } from "../../utils/asyncStorage";
 import { isSameDay } from "date-fns";
 import { DataStorageProps } from "../../@types/storage";
+import { validateInput } from "../../utils/validateInput";
 
 export function NewMeal({ route }: NewMealProps) {
   const routeParams = route?.params;
@@ -48,14 +50,6 @@ export function NewMeal({ route }: NewMealProps) {
     setShowDatePicker(!showDatePicker);
   }
 
-  function validateInput() {
-    const titleIsEmpty = formData.title === "";
-    const descriptionIsEmpty = formData.description === "";
-    if (titleIsEmpty || descriptionIsEmpty) {
-      return true;
-    }
-  }
-
   function handleChangeDate(event: DateTimePickerEvent, date?: Date) {
     setShowDatePicker(!showDatePicker);
     const currentDate = date || new Date();
@@ -66,62 +60,30 @@ export function NewMeal({ route }: NewMealProps) {
     });
   }
 
-  async function formatBodyStorage() {
-    const response = (await getStorage(
-      DATA_MEAL_STORAGE_KEY
-    )) as DataStorageProps[];
-
-    const newMeal = {
-      id: uuid.v4() as string,
-      hour: String(formData.date),
-      title: formData.title,
-      inDiet: buttonStatus === "inDiet",
-      description: formData.description,
-    };
-    if (response && response.length > 0) {
-      const updatedStorage = response.map((item) => {
-        const isSameDate = isSameDay(new Date(item.title), formData.date);
-        if (isSameDate) {
-          return { ...item, data: [...item.data, newMeal] };
-        }
-        return item;
-      });
-      const isSameDate = response.some((item) =>
-        isSameDay(new Date(item.title), formData.date)
-      );
-
-      if (!isSameDate) {
-        updatedStorage.push({
-          title: String(formData.date),
-          data: [newMeal],
-        });
-      }
-      return updatedStorage;
-    }
-    return [
-      {
-        title: String(formData.date),
-        data: [newMeal],
-      },
-    ];
-  }
-
   async function handleSaveMeal() {
     try {
-      const inputIsEmpty = validateInput();
+      const inputIsEmpty = validateInput(formData);
 
       if (inputIsEmpty) {
         return alert("Preencha todos os campos!");
       }
 
-      const storageData = await formatBodyStorage();
+      const newMeal = {
+        id: uuid.v4() as string,
+        hour: String(formData.date),
+        title: formData.title,
+        inDiet: buttonStatus === "inDiet",
+        description: formData.description,
+      };
 
-      await createStorage(DATA_MEAL_STORAGE_KEY, JSON.stringify(storageData));
+      await createNewMealStorage(newMeal);
+
       navigate("RegisteredMeal", { mealStatus: buttonStatus });
     } catch (err: any) {
       console.error("Error saving meal:", err.message);
     }
   }
+
   async function handleUpdateMeal() {
     try {
       await updateMealStorage({

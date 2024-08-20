@@ -35,6 +35,41 @@ async function getMealStorage(id: string) {
   return null;
 }
 
+async function createNewMealStorage(data: DataStorageItemProps) {
+  const response = (await getStorage(
+    DATA_MEAL_STORAGE_KEY
+  )) as DataStorageProps[];
+
+  if (response && response.length > 0) {
+    const updatedStorage = response.map((item) => {
+      const isSameDate = isSameDay(new Date(item.title), new Date(data.hour));
+      if (isSameDate) {
+        return { ...item, data: [...item.data, data] };
+      }
+      return item;
+    });
+    const isSameDate = response.some((item) =>
+      isSameDay(new Date(item.title), new Date(data.hour))
+    );
+
+    if (!isSameDate) {
+      updatedStorage.push({
+        title: String(data.hour),
+        data: [data],
+      });
+    }
+    await createStorage(DATA_MEAL_STORAGE_KEY, JSON.stringify(updatedStorage));
+    return;
+  }
+  const newData = [
+    {
+      title: String(data.hour),
+      data: [data],
+    },
+  ];
+  await createStorage(DATA_MEAL_STORAGE_KEY, JSON.stringify(newData));
+}
+
 async function updateMealStorage(data: DataStorageItemProps) {
   const response: DataStorageProps[] = await getStorage(DATA_MEAL_STORAGE_KEY);
 
@@ -108,4 +143,5 @@ export {
   getMealStorage,
   removeMealStorage,
   updateMealStorage,
+  createNewMealStorage,
 };
