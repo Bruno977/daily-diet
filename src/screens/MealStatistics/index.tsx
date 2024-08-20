@@ -7,7 +7,7 @@ import { CardStatistics } from "../../components/CardStatistics";
 import { Container } from "../NewMeal/styles";
 import { DATA_MEAL_STORAGE_KEY, getStorage } from "../../utils/asyncStorage";
 import { DataStorageProps } from "../../@types/storage";
-import { getMealPercentage } from "../../utils/getMealPercentage";
+import { getTotalMeal } from "../../utils/getTotalMeal";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 
@@ -15,15 +15,28 @@ export function MealStatistics() {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
 
-  const [percentage, setPercentage] = useState(0);
+  const [statusMeal, setStatusMeal] = useState({
+    percentage: 0,
+    inDiet: 0,
+    outDiet: 0,
+    totalMeals: 0,
+    mealInSequence: 0,
+  });
 
   async function getMealStorage() {
     try {
       const response = (await getStorage(
         DATA_MEAL_STORAGE_KEY
       )) as DataStorageProps[];
-      const percentage = getMealPercentage(response);
-      setPercentage(percentage);
+      const { percentage, inDiet, outDiet, mealInSequence } =
+        getTotalMeal(response);
+      setStatusMeal({
+        percentage,
+        inDiet,
+        outDiet,
+        mealInSequence,
+        totalMeals: inDiet + outDiet,
+      });
     } catch (error) {
       console.error("Error get meal", error);
     }
@@ -45,7 +58,7 @@ export function MealStatistics() {
         <HeaderAction colorIcon={theme.COLORS.GREEN_DARK} />
         <S.HeaderHeaderCardTitleContainer>
           <HeaderCardTitle
-            percentage={percentage}
+            percentage={statusMeal.percentage}
             subtitle="das refeições dentro da dieta"
           />
         </S.HeaderHeaderCardTitleContainer>
@@ -59,19 +72,22 @@ export function MealStatistics() {
         <S.TitleStatistics>Estatísticas gerais</S.TitleStatistics>
         <S.GridCardsContainer>
           <CardStatistics
-            title={22}
+            title={statusMeal.mealInSequence}
             description="melhor sequência de pratos dentro da dieta"
           />
-          <CardStatistics title={109} description="refeições registradas" />
+          <CardStatistics
+            title={statusMeal.totalMeals}
+            description="refeições registradas"
+          />
           <S.GridCardsRow>
             <CardStatistics
               color={theme.COLORS.GREEN_LIGHT}
-              title={32}
+              title={statusMeal.inDiet}
               description={`refeições dentro da \n dieta`}
             />
             <CardStatistics
               color={theme.COLORS.RED_LIGHT}
-              title={77}
+              title={statusMeal.outDiet}
               description={`refeições fora da \n dieta`}
             />
           </S.GridCardsRow>

@@ -13,7 +13,7 @@ import { useCallback, useState } from "react";
 import { DATA_MEAL_STORAGE_KEY, getStorage } from "../../utils/asyncStorage";
 import { DataStorageProps } from "../../@types/storage";
 import { orderDates } from "../../utils/orderDates";
-import { getMealPercentage } from "../../utils/getMealPercentage";
+import { getTotalMeal } from "../../utils/getTotalMeal";
 
 export function Home() {
   const insets = useSafeAreaInsets();
@@ -32,7 +32,7 @@ export function Home() {
       const response = (await getStorage(
         DATA_MEAL_STORAGE_KEY
       )) as DataStorageProps[];
-      const percentage = getMealPercentage(response);
+      const { percentage } = getTotalMeal(response);
       setPercentage(percentage);
       setMealList(orderDates(response));
     } catch (error) {
