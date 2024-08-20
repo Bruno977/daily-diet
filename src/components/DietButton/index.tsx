@@ -6,9 +6,14 @@ import { PressableProps } from "react-native";
 
 export type DietButtonProps = PressableProps & {
   variant?: "primary" | "secondary";
+  percentage?: number;
 };
 
-export function DietButton({ variant = "primary", ...rest }: DietButtonProps) {
+export function DietButton({
+  variant = "primary",
+  percentage = 0,
+  ...rest
+}: DietButtonProps) {
   const theme = useTheme();
   return (
     <S.Button variant={variant} {...rest}>
@@ -23,7 +28,7 @@ export function DietButton({ variant = "primary", ...rest }: DietButtonProps) {
         />
       </S.Icon>
       <HeaderCardTitle
-        percentage={90.86}
+        percentage={percentage}
         subtitle="das refeições dentro da dieta"
       />
     </S.Button>

@@ -4,7 +4,10 @@ interface HeaderCardProps {
   subtitle: string;
 }
 export function HeaderCardTitle({ percentage, subtitle }: HeaderCardProps) {
-  const percentageFormatted = percentage.toString().replace(".", ",");
+  const percentageFormatted = percentage
+    .toFixed(2)
+    .toString()
+    .replace(".", ",");
   return (
     <>
       <S.Percentage>{percentageFormatted}%</S.Percentage>

@@ -13,10 +13,12 @@ import { useCallback, useState } from "react";
 import { DATA_MEAL_STORAGE_KEY, getStorage } from "../../utils/asyncStorage";
 import { DataStorageProps } from "../../@types/storage";
 import { orderDates } from "../../utils/orderDates";
+import { getMealPercentage } from "../../utils/getMealPercentage";
 
 export function Home() {
   const insets = useSafeAreaInsets();
   const [mealList, setMealList] = useState<DataStorageProps[] | []>([]);
+  const [percentage, setPercentage] = useState(0);
   const { navigate } = useNavigation();
   function handlePressNewMeal() {
     navigate("MealStatistics");
@@ -30,7 +32,8 @@ export function Home() {
       const response = (await getStorage(
         DATA_MEAL_STORAGE_KEY
       )) as DataStorageProps[];
-
+      const percentage = getMealPercentage(response);
+      setPercentage(percentage);
       setMealList(orderDates(response));
     } catch (error) {
       console.error("Error get meal", error);
@@ -62,7 +65,7 @@ export function Home() {
         ListHeaderComponent={
           <>
             <Header />
-            <DietButton onPress={handlePressNewMeal} />
+            <DietButton onPress={handlePressNewMeal} percentage={percentage} />
             <S.MealTitle>Refeições</S.MealTitle>
             <Button
               title="Nova Refeição"

@@ -5,10 +5,34 @@ import * as S from "./styles";
 import { useTheme } from "styled-components/native";
 import { CardStatistics } from "../../components/CardStatistics";
 import { Container } from "../NewMeal/styles";
+import { DATA_MEAL_STORAGE_KEY, getStorage } from "../../utils/asyncStorage";
+import { DataStorageProps } from "../../@types/storage";
+import { getMealPercentage } from "../../utils/getMealPercentage";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback, useState } from "react";
 
 export function MealStatistics() {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
+
+  const [percentage, setPercentage] = useState(0);
+
+  async function getMealStorage() {
+    try {
+      const response = (await getStorage(
+        DATA_MEAL_STORAGE_KEY
+      )) as DataStorageProps[];
+      const percentage = getMealPercentage(response);
+      setPercentage(percentage);
+    } catch (error) {
+      console.error("Error get meal", error);
+    }
+  }
+  useFocusEffect(
+    useCallback(() => {
+      getMealStorage();
+    }, [])
+  );
   return (
     <>
       <S.HeaderContainer
@@ -21,7 +45,7 @@ export function MealStatistics() {
         <HeaderAction colorIcon={theme.COLORS.GREEN_DARK} />
         <S.HeaderHeaderCardTitleContainer>
           <HeaderCardTitle
-            percentage={90.86}
+            percentage={percentage}
             subtitle="das refeições dentro da dieta"
           />
         </S.HeaderHeaderCardTitleContainer>
