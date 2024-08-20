@@ -9,11 +9,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PencilSimpleLine, Trash } from "phosphor-react-native";
 import { Modal } from "../../components/Modal";
 import { useEffect, useMemo, useState } from "react";
-import { MealDetailsProps, MealProps } from "./types";
+import { MealDetailsProps } from "./types";
 import { getMealStorage, removeMealStorage } from "../../utils/asyncStorage";
 import { DataStorageItemProps } from "../../@types/storage";
-import { format } from "date-fns";
 import { useNavigation } from "@react-navigation/native";
+import { formatDetailsMealTime } from "../../utils/formatDate";
 
 export function MealDetails({ route }: MealDetailsProps) {
   const { mealId } = route.params;
@@ -37,16 +37,13 @@ export function MealDetails({ route }: MealDetailsProps) {
     return meal?.inDiet ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT;
   }, [mealId, meal?.inDiet]);
 
-  function formatDate() {
-    if (!meal?.hour) {
-      return;
-    }
-    return format(new Date(meal?.hour), "dd/MM/yyyy 'às' HH:mm");
-  }
-
   async function getMeal() {
-    const mealData = await getMealStorage(mealId);
-    setMeal(mealData);
+    try {
+      const mealData = await getMealStorage(mealId);
+      setMeal(mealData);
+    } catch (error) {
+      console.error("Error get meal", error);
+    }
   }
 
   useEffect(() => {
@@ -67,7 +64,11 @@ export function MealDetails({ route }: MealDetailsProps) {
         </View>
         <View style={{ gap: 8 }}>
           <S.TitleDateAndTime>Data e hora</S.TitleDateAndTime>
-          <S.Description>{formatDate()}</S.Description>
+          {meal?.hour && (
+            <S.Description>
+              {formatDetailsMealTime(new Date(meal.hour))}
+            </S.Description>
+          )}
         </View>
         <Tag status={meal?.inDiet ? "inDiet" : "outDiet"} />
       </Container>

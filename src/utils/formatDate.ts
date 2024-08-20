@@ -12,4 +12,8 @@ function formatTime(date: Date) {
   return format(date, "HH:mm");
 }
 
-export {formatDate, formatTime, formatDateTitle}
+function formatDetailsMealTime(date: Date) {
+  return format(new Date(date), "dd/MM/yyyy 'às' HH:mm");
+}
+
+export { formatDate, formatTime, formatDateTitle, formatDetailsMealTime };
