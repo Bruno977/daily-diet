@@ -12,6 +12,7 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 import { DATA_MEAL_STORAGE_KEY, getStorage } from "../../utils/asyncStorage";
 import { DataStorageProps } from "../../@types/storage";
+import { orderDates } from "../../utils/orderDates";
 
 export function Home() {
   const insets = useSafeAreaInsets();
@@ -29,7 +30,8 @@ export function Home() {
       const response = (await getStorage(
         DATA_MEAL_STORAGE_KEY
       )) as DataStorageProps[];
-      setMealList(response);
+
+      setMealList(orderDates(response));
     } catch (error) {
       console.error("Error get meal", error);
     }
