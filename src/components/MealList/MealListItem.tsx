@@ -8,11 +8,16 @@ type MealListItemProps = {
   data: DataStorageItemProps;
 };
 
+export const MEAL_LIST_ITEM_TEST_ID = "MealsListItem";
+
 export function MealListItem({ data }: MealListItemProps) {
   const { navigate } = useNavigation();
 
   return (
-    <S.Container onPress={() => navigate("MealDetails", { mealId: data.id })}>
+    <S.Container
+      testID={MEAL_LIST_ITEM_TEST_ID}
+      onPress={() => navigate("MealDetails", { mealId: data.id })}
+    >
       <S.Hour>{formatTime(new Date(data.hour))}</S.Hour>
       <S.Divider />
       <S.Title>{formatTitle(data.title)}</S.Title>

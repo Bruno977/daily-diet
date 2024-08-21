@@ -1,5 +1,5 @@
-import { render } from "../../../__tests__/utils/customRender";
-import { MealListEmpty } from "./MealListEmpty";
+import { render } from "../../../../__tests__/utils/customRender";
+import { MealListEmpty } from "../MealListEmpty";
 
 describe("<MealListEmpty />", () => {
   it("should be render correctly", () => {
