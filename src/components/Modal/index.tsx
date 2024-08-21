@@ -5,6 +5,9 @@ type Props = ModalProps & {
   onClose: () => void;
   onConfirm: () => void;
 };
+export const MODAL_CANCEL_TEST_ID = "ModalCancel";
+export const MODAL_CONFIRM_TEST_ID = "ModalConfirm";
+
 export function Modal({ onClose, onConfirm, ...rest }: Props) {
   return (
     <ModalRN {...rest} transparent statusBarTranslucent animationType="fade">
@@ -19,11 +22,13 @@ export function Modal({ onClose, onConfirm, ...rest }: Props) {
               variant="outline"
               style={{ flex: 1 }}
               onPress={onClose}
+              testID={MODAL_CANCEL_TEST_ID}
             />
             <Button
               title="Sim, excluir"
               style={{ flex: 1 }}
               onPress={onConfirm}
+              testID={MODAL_CONFIRM_TEST_ID}
             />
           </S.ContainerButtons>
         </S.Content>
