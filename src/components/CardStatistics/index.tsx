@@ -5,6 +5,8 @@ type CardStatisticsProps = {
   description: string;
   color?: string;
 };
+export const CARD_STATISTICS_TEST_ID = "card-statistics";
+
 export function CardStatistics({
   title,
   color,
@@ -13,7 +15,10 @@ export function CardStatistics({
   const theme = useTheme();
   const background = color ? color : theme.COLORS.GRAY_6;
   return (
-    <S.Container style={{ backgroundColor: background }}>
+    <S.Container
+      style={{ backgroundColor: background }}
+      testID={CARD_STATISTICS_TEST_ID}
+    >
       <S.Title>{title}</S.Title>
       <S.Description>{description}</S.Description>
     </S.Container>
