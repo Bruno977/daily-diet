@@ -7,7 +7,9 @@ type HeaderActionProps = {
   colorIcon?: string;
   title?: string;
 };
-
+export const HEADER_ACTION_BUTTON_TEST_ID = "HeaderActionButton";
+export const HEADER_ACTION_ICON_TEST_ID = "HeaderActionIcon";
+export const HEADER_ACTION_TITLE_TEST_ID = "HeaderActionTitle";
 export function HeaderAction({ colorIcon, title }: HeaderActionProps) {
   const theme = useTheme();
   const navigation = useNavigation();
@@ -16,13 +18,13 @@ export function HeaderAction({ colorIcon, title }: HeaderActionProps) {
   }
   return (
     <S.Container>
-      <S.Button onPress={handleGoBack}>
+      <S.Button onPress={handleGoBack} testID={HEADER_ACTION_BUTTON_TEST_ID}>
         <ArrowLeft
           size={24}
           color={colorIcon ? colorIcon : theme.COLORS.GRAY_2}
         />
       </S.Button>
-      {title && <S.Title>{title}</S.Title>}
+      {title && <S.Title testID={HEADER_ACTION_TITLE_TEST_ID}>{title}</S.Title>}
     </S.Container>
   );
 }
