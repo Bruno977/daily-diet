@@ -9,5 +9,10 @@
   "transform": {
     "^.+\\.jsx?$": "babel-jest",
     "^.+\\.svg$": "jest-transformer-svg"
-  }
+  },
+  "testPathIgnorePatterns": [
+    "./__tests__/__mocks__",
+    "./__tests__/utils",
+    "./__tests__/setupTests.ts"
+  ]
 }
