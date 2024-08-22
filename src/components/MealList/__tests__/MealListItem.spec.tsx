@@ -1,4 +1,4 @@
-import { mealItem } from "../../../../__tests__/mock/mealItem";
+import { mealItem } from "../../../../__tests__/__mocks__/mealItem";
 import { fireEvent, render } from "../../../../__tests__/utils/customRender";
 import { MEAL_LIST_ITEM_TEST_ID, MealListItem } from "../MealListItem";
 
