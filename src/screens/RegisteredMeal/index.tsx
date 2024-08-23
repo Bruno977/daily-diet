@@ -9,11 +9,16 @@ import { Image } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes/types";
 
-type Props = NativeStackScreenProps<RootStackParamList, "RegisteredMeal">;
+export type Props = NativeStackScreenProps<
+  RootStackParamList,
+  "RegisteredMeal"
+>;
 
 type MealStatusProps = {
   mealStatus: ButtonMealStatusProps;
 };
+
+export const REGISTERED_MEAL_BUTTON_TEST_ID = "RegisteredMeal";
 
 export function RegisteredMeal({ route }: Props) {
   const { mealStatus } = route.params as MealStatusProps;
@@ -51,6 +56,7 @@ export function RegisteredMeal({ route }: Props) {
         <Image source={contentScreen[mealStatus].image} />
       </S.containerImage>
       <Button
+        testID={REGISTERED_MEAL_BUTTON_TEST_ID}
         title="Ir para a página Inicial"
         onPress={() => navigate("Home")}
       />
