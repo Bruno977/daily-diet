@@ -15,6 +15,9 @@ import { DataStorageItemProps } from "../../@types/storage";
 import { useNavigation } from "@react-navigation/native";
 import { formatDetailsMealTime } from "../../utils/formatDate";
 
+export const BUTTON_REMOVE_MEAL = "ButtonRemoveMeal";
+export const BUTTON_EDIT_MEAL = "ButtonEditMeal";
+
 export function MealDetails({ route }: MealDetailsProps) {
   const { mealId } = route.params;
   const { navigate } = useNavigation();
@@ -83,11 +86,13 @@ export function MealDetails({ route }: MealDetailsProps) {
         <Button
           title="Editar Refeição"
           icon={<PencilSimpleLine />}
+          testID={BUTTON_EDIT_MEAL}
           onPress={() => navigate("NewMeal", { mealId: mealId })}
         />
         <Button
           title="Excluir Refeição"
           variant="outline"
+          testID={BUTTON_REMOVE_MEAL}
           icon={<Trash />}
           onPress={() => setModalDeleteIsVisible(!modalDeleteIsVisible)}
         />
