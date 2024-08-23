@@ -17,15 +17,16 @@ import uuid from "react-native-uuid";
 import { formatDate, formatTime } from "../../utils/formatDate";
 import {
   createNewMealStorage,
-  createStorage,
-  DATA_MEAL_STORAGE_KEY,
   getMealStorage,
-  getStorage,
   updateMealStorage,
 } from "../../utils/asyncStorage";
-import { isSameDay } from "date-fns";
-import { DataStorageProps } from "../../@types/storage";
+
 import { validateInput } from "../../utils/validateInput";
+
+export const CREATE_NEW_MEAL_BUTTON_TEST_ID = "CreateNewMealButton";
+export const UPDATE_MEAL_BUTTON_TEST_ID = "UpdateMealButton";
+export const INPUT_DATE_TEST_ID = "InputDate";
+export const INPUT_TIME_TEST_ID = "InputTime";
 
 export function NewMeal({ route }: NewMealProps) {
   const routeParams = route?.params;
@@ -154,11 +155,13 @@ export function NewMeal({ route }: NewMealProps) {
             <InputDate
               label="Data"
               value={formatDate(date)}
+              testID={INPUT_DATE_TEST_ID}
               onPress={() => handleBlurDateType("date")}
             />
             <InputDate
               label="Hora"
               value={formatTime(date)}
+              testID={INPUT_TIME_TEST_ID}
               onPress={() => handleBlurDateType("time")}
             />
           </S.GridRow>
@@ -181,9 +184,17 @@ export function NewMeal({ route }: NewMealProps) {
           </View>
         </S.GridContainer>
         {routeParams?.mealId ? (
-          <Button title="Salvar alterações" onPress={handleUpdateMeal} />
+          <Button
+            title="Salvar alterações"
+            onPress={handleUpdateMeal}
+            testID={UPDATE_MEAL_BUTTON_TEST_ID}
+          />
         ) : (
-          <Button title="Cadastrar Refeição" onPress={handleSaveMeal} />
+          <Button
+            title="Cadastrar Refeição"
+            onPress={handleSaveMeal}
+            testID={CREATE_NEW_MEAL_BUTTON_TEST_ID}
+          />
         )}
       </S.Container>
     </>
