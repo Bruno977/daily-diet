@@ -37,10 +37,10 @@ function getTotalMeal(data: DataStorageProps[]) {
   const totalMealsInSequence = getTotalMealInSequence(data);
   const totalMeals = totalItems.inDiet + totalItems.outDiet;
   return {
-    percentage: (totalItems.inDiet / totalMeals) * 100,
-    inDiet: totalItems.inDiet,
-    outDiet: totalItems.outDiet,
-    mealInSequence: totalMealsInSequence,
+    percentage: data.length > 0 ? (totalItems.inDiet / totalMeals) * 100 : 0,
+    inDiet: data.length > 0 ? totalItems.inDiet : 0,
+    outDiet: data.length > 0 ? totalItems.outDiet : 0,
+    mealInSequence: data.length > 0 ? totalMealsInSequence : 0,
   };
 }
 
