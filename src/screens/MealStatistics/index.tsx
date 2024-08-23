@@ -49,13 +49,20 @@ export function MealStatistics() {
   return (
     <>
       <S.HeaderContainer
+        isPositive={statusMeal.percentage > 60}
         style={{
           paddingTop: insets.top + 24,
           paddingLeft: insets.left + 24,
           paddingRight: insets.right + 24,
         }}
       >
-        <HeaderAction colorIcon={theme.COLORS.GREEN_DARK} />
+        <HeaderAction
+          colorIcon={
+            statusMeal.percentage > 60
+              ? theme.COLORS.GREEN_DARK
+              : theme.COLORS.RED_DARK
+          }
+        />
         <S.HeaderHeaderCardTitleContainer>
           <HeaderCardTitle
             percentage={statusMeal.percentage}
