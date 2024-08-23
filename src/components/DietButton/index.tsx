@@ -15,16 +15,13 @@ export function DietButton({
   ...rest
 }: DietButtonProps) {
   const theme = useTheme();
+  const isPositive = percentage > 60;
   return (
-    <S.Button variant={variant} {...rest}>
+    <S.Button variant={variant} {...rest} isPositive={isPositive}>
       <S.Icon>
         <ArrowUpRight
           size={24}
-          color={
-            variant === "primary"
-              ? theme.COLORS.GREEN_DARK
-              : theme.COLORS.RED_DARK
-          }
+          color={isPositive ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK}
         />
       </S.Icon>
       <HeaderCardTitle
