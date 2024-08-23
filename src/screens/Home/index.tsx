@@ -15,6 +15,8 @@ import { DataStorageProps } from "../../@types/storage";
 import { orderDates } from "../../utils/orderDates";
 import { getTotalMeal } from "../../utils/getTotalMeal";
 
+export const HOME_DIET_BUTTON_TEST_ID = "HomeDietButton";
+export const HOME_NEW_MEAL_TEST_ID = "HomeNewMeal";
 export function Home() {
   const insets = useSafeAreaInsets();
   const [mealList, setMealList] = useState<DataStorageProps[] | []>([]);
@@ -60,11 +62,13 @@ export function Home() {
           <>
             <Header />
             <DietButton
+              testID={HOME_DIET_BUTTON_TEST_ID}
               onPress={() => navigate("MealStatistics")}
               percentage={percentage}
             />
             <S.MealTitle>Refeições</S.MealTitle>
             <Button
+              testID={HOME_NEW_MEAL_TEST_ID}
               title="Nova Refeição"
               icon={<Plus />}
               onPress={() => navigate("NewMeal")}
