@@ -15,11 +15,31 @@ export function AppRoutes() {
       screenOptions={{ headerShown: false }}
       initialRouteName="Home"
     >
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="MealStatistics" component={MealStatistics} />
-      <Stack.Screen name="NewMeal" component={NewMeal} />
-      <Stack.Screen name="RegisteredMeal" component={RegisteredMeal} />
-      <Stack.Screen name="MealDetails" component={MealDetails} />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ animation: "fade" }}
+      />
+      <Stack.Screen
+        name="MealStatistics"
+        component={MealStatistics}
+        options={{ animation: "fade" }}
+      />
+      <Stack.Screen
+        name="NewMeal"
+        component={NewMeal}
+        options={{ animation: "fade" }}
+      />
+      <Stack.Screen
+        name="RegisteredMeal"
+        component={RegisteredMeal}
+        options={{ animation: "fade" }}
+      />
+      <Stack.Screen
+        name="MealDetails"
+        component={MealDetails}
+        options={{ animation: "fade" }}
+      />
     </Stack.Navigator>
   );
 }
